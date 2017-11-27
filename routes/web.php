@@ -11,24 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    // estamos ordenando por la fecha de publicacion, en caso de no poner nada
-    // se ordena por la fecha de creacion
-    $posts = App\Post::latest('published_at')->get();
+Route::get('/', 'PagesController@home');
 
-    // le pasamos a la plantilla para le pasamos una variable y su valor
-    //return view('welcome')->with('posts', $posts);
-    // otra forma de hacerlo es la siguiente
-    return view('welcome', compact('posts'));
+/*
+* Vamos a crear un grupo  llamado admin que quiere decir que todas 
+las rutas van a estar precedidas por admin
+Para ya no colocar Admin colocaremos la sgte instruccion: namespace => Admin
+De esta manera tambien podemos indicar que todos los que se encuentran en este grupo
+estaran bajo el control del middleware auth
+*/
+Route::group([
+    'prefix' => 'admin', 
+    'namespace' => 'Admin', 
+    'middleware' => 'auth'], 
+function () {
+    Route::get('posts','PostsController@index')->name('admin.posts.index');    
 });
-
+/*
+* fin
+*/
 Route::get('posts', function () {
     return App\Post::all();
 });
 
-Route::get('home', function () {
-    return view('admin.dashboard');
-})->middleware('auth');
+Route::get('home', 'HomeController@index');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
