@@ -12,20 +12,27 @@
 */
 
 Route::get('/', 'PagesController@home');
+Route::get('blog/{post}', 'PostsController@show');
 
 /*
-* Vamos a crear un grupo  llamado admin que quiere decir que todas 
+* Vamos a crear un grupo  llamado admin que quiere decir que todas
 las rutas van a estar precedidas por admin
 Para ya no colocar Admin colocaremos la sgte instruccion: namespace => Admin
 De esta manera tambien podemos indicar que todos los que se encuentran en este grupo
 estaran bajo el control del middleware auth
 */
 Route::group([
-    'prefix' => 'admin', 
-    'namespace' => 'Admin', 
-    'middleware' => 'auth'], 
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'middleware' => 'auth'],
 function () {
-    Route::get('posts','PostsController@index')->name('admin.posts.index');    
+  // colocamos el / para que nos lleve a la raiz del grupo y no
+  // tener admin/admin
+  Route::get('/', 'AdminController@index')->name('dashboard');
+  Route::get('posts','PostsController@index')->name('admin.posts.index');
+  Route::get('posts/create','PostsController@create')->name('admin.posts.create');
+  Route::post('posts','PostsController@store')->name('admin.posts.store');
+
 });
 /*
 * fin
@@ -34,7 +41,7 @@ Route::get('posts', function () {
     return App\Post::all();
 });
 
-Route::get('home', 'HomeController@index');
+
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

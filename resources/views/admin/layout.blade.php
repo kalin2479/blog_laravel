@@ -15,10 +15,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/adminlte/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="/adminlte/Ionicons/css/ionicons.min.css">
+  <!-- Nos va a colocar los estilos solo cuando los necesitemos, y coloca los archivos-->
+  <!-- Se le coloca un nombre con el cual llamaremos -->
+  <!-- Uno debajo del otro -->
+  <!-- yield sobreescribe los archivos -->
+
+  @stack('styles')
+
   <!-- Theme style -->
   <link rel="stylesheet" href="/adminlte/css/AdminLTE.min.css">
 
-  <link rel="stylesheet" href="/adminlte/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -254,7 +261,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     <section class="content container-fluid">
-
+      @if (session()->has('flash'))
+        <div class="alert alert-success">
+          {{ session('flash') }}
+        </div>
+      @endif
       @yield('content')
 
     </section>
@@ -358,22 +369,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Bootstrap 3.3.7 -->
 <script src="/adminlte/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="/adminlte/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/adminlte/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+@stack('scripts')
+
+
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
-<script>
-  $(function () {
-    $('#posts-table').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->

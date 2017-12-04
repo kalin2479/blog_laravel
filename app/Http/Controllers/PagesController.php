@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 /*
-* Vamos a importar el App correspondiente 
+* Vamos a importar el App correspondiente
 */
 use App\Post;
 
@@ -13,9 +13,7 @@ class PagesController extends Controller
 {
     public function home($value='')
     {
-        // estamos ordenando por la fecha de publicacion, en caso de no poner nada
-        // se ordena por la fecha de creacion
-        $posts = Post::latest('published_at')->get();
+        $posts = Post::publishead()->get();
 
         // le pasamos a la plantilla para le pasamos una variable y su valor
         //return view('welcome')->with('posts', $posts);
