@@ -29,6 +29,22 @@ class PostsController extends Controller
     }
     public function store(Request $request)
     {
+      $this->validate($request, ['title' => 'required']);
+
+      $post = Post::create([
+        'title' => $request->get('title'),
+        'url' => str_slug($request->get('title'))
+      ]);
+
+      return redirect()->route('admin.posts.edit',$post);
+    }
+    public function edit(Post $post)
+    {
+      return view('admin.posts.edit', compact('post'));
+    }
+
+    /*public function store(Request $request)
+    {
       // validacion
       // validate se encuentra de la clase controller a la cual accedemos
       // de la siguiente manera
@@ -56,5 +72,5 @@ class PostsController extends Controller
       $post->tags()->attach($request->get('tags'));
 
       return back()->with('flash', 'Tu publicacion ha sido creada');
-    }
+    }*/
 }

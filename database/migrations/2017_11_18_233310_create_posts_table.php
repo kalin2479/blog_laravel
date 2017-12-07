@@ -17,10 +17,10 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('url');
-            $table->mediumText('excerpt');
-            $table->text('body');
+            $table->mediumText('excerpt')->nullable();
+            $table->text('body')->nullable();
             $table->timestamp('published_at')->nullable(); // indicamos que este campo puede ser nulo
-            $table->unsignedInteger('category_id'); // lo relacionamos de esta manera con la categoria
+            $table->unsignedInteger('category_id')->nullable(); // lo relacionamos de esta manera con la categoria
             $table->timestamps();
         });
     }
