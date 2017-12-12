@@ -1,4 +1,5 @@
 <?php
+
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -11,13 +12,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate(); //vaciamos la tabla
+      User::truncate(); //vaciamos la tabla
 
-        $user = new User;
-        $user->name = 'Carlos Espinoza';
-        $user->email = 'carlos.espinoza24g@gmail.com';
-        $user->password = bcrypt('123123');
-        $user->save();
-
+      $user = new User;
+      $user->name = 'Carlos Espinoza';
+      $user->email = 'carlos.espinoza24g@gmail.com';
+      $user->password = bcrypt('123123');
+      $user->save();
     }
 }

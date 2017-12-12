@@ -48,6 +48,9 @@ class PostsTableSeeder extends Seeder
         $post->category_id = 1;
         $post->save();
 
+        //$post->tags()->attach(Tag::create(['name' => 'etiqueta 2']))
+
+
         $post = new Post;
         $post->title = "Mi tercer post";
         $post->url = str_slug("Mi tercer post");
@@ -58,6 +61,9 @@ class PostsTableSeeder extends Seeder
         $post->category_id = 2;
         $post->save();
 
+        //$post->tags()->attach(Tag::create(['name' => 'etiqueta 3']))
+
+
         $post = new Post;
         $post->title = "Mi cuarto post";
         $post->url = str_slug("Mi cuarto post");
@@ -67,5 +73,8 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id = 2;
         $post->save();
+
+        //$post->tags()->attach(Tag::create(['name' => 'etiqueta 4']))
+
     }
 }

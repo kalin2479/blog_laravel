@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         // Esta funcion sirve para llenar de manera automatica
         $this->call(UsersTableSeeder::class);
         $this->call(PostsTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
     }
 }

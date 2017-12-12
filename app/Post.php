@@ -32,6 +32,12 @@ class Post extends Model
         return $this->belongsToMany(Tag::class); // relacion de muchos a muchos
     }
 
+    public function photos()
+    {
+      // definimos la relacion de uno a muchos
+      return $this->hasMany(Photo::class);
+    }
+
     public function scopePublishead($query)
     {
       // la sintaxis es colocar en minuscula la palabra scope a;adiendo la
