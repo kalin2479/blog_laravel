@@ -38,5 +38,7 @@ class PhotosController extends Controller
         'url' => $photoUrl,
         'post_id' => $post->id
       ]);
+
+      return $photoUrl;
     }
 }
