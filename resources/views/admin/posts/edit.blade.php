@@ -14,6 +14,27 @@
 
 @section('content')
   <div class="row">
+    @if ($post->photos->count())
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-body">
+            <div class="row">
+              @foreach ($post->photos as $photo)
+                <form method="POST" action="{{ route('admin.photos.destroy',$photo) }}">
+                  {{ method_field('DELETE') }} {{ csrf_field() }}
+                  <div class="col-md-2">
+                    <button class="btn btn-danger btn-xs" style="position:absolute">
+                      <i class="fa fa-remove"></i>
+                    </button>
+                    <img src="{{ url($photo->url) }}" class="img-responsive" alt="" />
+                  </div>
+                </form>
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
     <form method="POST" action="{{ route('admin.posts.update', $post) }}" >
       {{ csrf_field() }} {{ method_field('PUT') }}
       <!-- method_field('PUT'), nos sirve para indicar que estamos enviando los datos por el metodo put -->
@@ -105,6 +126,7 @@
         </div>
       </div>
     </form>
+
   </div>
 
 

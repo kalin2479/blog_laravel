@@ -39,6 +39,21 @@ class PhotosController extends Controller
         'post_id' => $post->id
       ]);
 
-      return $photoUrl;
+      // return $photoUrl;
+    }
+
+    public function destroy(Photo $photo)
+    {
+      // eliminamos el registro de la base de datos
+      $photo->delete();
+
+      // reemplazamos storage por public para poder borrar la imagen del servidor
+      $photoPath = str_replace('storage','public',$photo->url);
+
+      // Para elimniar un archivo utilizamos storage delete
+      // que recibe por parametro la ubicacion del archivos
+      Storage::delete($photoPath);
+
+      return back()->with('flash','Foto eliminada');
     }
 }

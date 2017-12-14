@@ -10,7 +10,7 @@ CKEDITOR.tools.enableHtml5Elements( document );
 
 // The trick to keep the editor in the sample quite small
 // unless user specified own height.
-CKEDITOR.config.height = 150;
+CKEDITOR.config.height = 315;
 CKEDITOR.config.width = 'auto';
 CKEDITOR.config.language = 'en';
 CKEDITOR.config.toolbar = [
