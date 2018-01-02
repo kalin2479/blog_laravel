@@ -13,9 +13,20 @@ class PagesController extends Controller
 {
     public function home($value='')
     {
-        $posts = Post::publishead()->get();
+        // Para paginar lo que hacemos es en ver de llamar
+        // al metodo get llamamos al metodo paginate, si note
+        // le pasamos ningun parametro lo hara de 15 en 15
+        // Para obtener el php de paginacion hacemos la siguiente instruccion
+        // php artisan vendor:publish --tag=laravel-pagination
 
-        // le pasamos a la plantilla para le pasamos una variable y su valor
+        // Otra forma de paginacion
+        // Es: simplePaginate(numero de item a mostros)
+        // $posts = Post::publishead()->get();
+        $posts = Post::publishead()->paginate(4);
+        // $posts = Post::publishead()->simplePaginate(2);
+
+        // le pasamos el nombre de la plantilla
+        // Luego una variable y su valor
         //return view('welcome')->with('posts', $posts);
         // otra forma de hacerlo es la siguiente
         return view('welcome', compact('posts'));

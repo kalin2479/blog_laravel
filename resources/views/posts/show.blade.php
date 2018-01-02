@@ -12,6 +12,11 @@
 			<figure><img src="{{ $post->photos->first()->url }}" alt="" class="img-responsive"></figure>
 		@elseif($post->photos->count() > 1)
 			@include('posts.carousel')
+		@elseif ($post->iframe)
+			<div class="video">
+				{{-- hacemos de esta manera por que vamos a imprimir html como tal --}}
+				{!! $post->iframe !!}
+			</div>
 		@endif
     <div class="content-post">
       <header class="container-flex space-between">

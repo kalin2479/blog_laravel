@@ -13,6 +13,7 @@
 
 Route::get('/', 'PagesController@home');
 Route::get('blog/{post}', 'PostsController@show')->name('posts.show');
+Route::get('categorias/{category}', 'CategoriesController@show')->name('categories.show');
 
 /*
 * Vamos a crear un grupo  llamado admin que quiere decir que todas
