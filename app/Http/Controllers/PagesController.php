@@ -22,7 +22,7 @@ class PagesController extends Controller
         // Otra forma de paginacion
         // Es: simplePaginate(numero de item a mostros)
         // $posts = Post::publishead()->get();
-        $posts = Post::publishead()->paginate(4);
+        $posts = Post::publishead()->paginate(3);
         // $posts = Post::publishead()->simplePaginate(2);
 
         // le pasamos el nombre de la plantilla
