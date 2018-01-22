@@ -83,7 +83,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('category') ? 'has-error' : '' }}">
                             <label for="">Categorias </label>
-                            <select class="form-control" name="category">
+                            <select class="form-control select2" name="category">
                                 <option value="">Selecciona una categoria</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
@@ -161,7 +161,9 @@
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     initConfig();
-    $('.select2').select2();
+    $('.select2').select2({
+        tags : true
+    });
 
     // Configuracion del Dropzone
     // El 2 parametro es de configuracion

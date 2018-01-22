@@ -19,8 +19,8 @@ class CategoriesController extends Controller
         // pertencen a esa categoria.
         // tenemos que pasar paginate() porque estamos paginando sino nos saldra un error de links
         return view('welcome',[
-            'category' => $category,
-            'posts' => $category->posts()->paginate(1)
+            'title' => "Publicaciones de la categoría {$category->name}",
+            'posts' => $category->posts()->paginate()
         ]);
 
     }

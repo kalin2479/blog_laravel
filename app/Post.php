@@ -53,4 +53,11 @@ class Post extends Model
         ->latest('published_at');
 
     }
+
+    // Creamos un mutador para las url amigables y no estar generando codigo repetido
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['url'] = str_slug($title);
+    }
 }
