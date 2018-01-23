@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     // le pasamos un array vacio para desactivar la asigancion masiva
-    protected $guarded = [];
+    // protected $guarded = [];
+    // Para proteger de la asignacion masiva y definiremos los unicos
+    // campos que se puedan asignar masivamente
+    // De ahora en adelante no importa cuantos atributos pasen por el formulario, solo estos
+    // se actualizaran realmente
+    protected $fillable = [
+        'title', 'body', 'iframe', 'excerpt', 'published_at', 'category_id',
+    ];
 
     // lo que hacemos haciendo es darle formato de fecha para poder usar todas las propiedades
     protected $dates = ['published_at'];
@@ -59,5 +66,32 @@ class Post extends Model
     {
         $this->attributes['title'] = $title;
         $this->attributes['url'] = str_slug($title);
+    }
+
+    // Creamos una funcion para setear o mutar el atributo published_at
+    public function setPublishedAtAttribute($published_at)
+    {
+        //echo $published_at; die();
+        $this->attributes['published_at'] = $published_at ? Carbon::parse($published_at) : null;
+    }
+    public function setCategoryIdAttribute($category)
+    {
+        $this->attributes['category_id'] = Category::find($category) ? $category : Category::create(['name' => $category])->id;
+    }
+
+    // Creamos el metodo para las etiquetas
+    public function syncTags($tags)
+    {
+        // Para el caso de las etiquetas utilizaremos colecciones y utilizaremos maps
+        // con lo cual iremos recibiendo las etiquetas una a la vez
+        $tagIds = collect($tags)->map(function($tag){
+            return Tag::find($tag) ? $tag : Tag::create(['name' => $tag])->id;
+        });
+        // Finalmente lo que hacemos es sincronizar con el array de tareas de la siguiente manera
+        return $this->tags()->sync($tagIds);
+        //etiquetas
+        // sync -> para evitar duplicidad de etiquetas
+        // attach -> cuando coloco este metodo me esta generando duplicidad en la BD
+        // $post->tags()->sync($request->get('tags'));
     }
 }
