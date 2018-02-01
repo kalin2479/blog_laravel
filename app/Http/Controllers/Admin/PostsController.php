@@ -147,6 +147,21 @@ class PostsController extends Controller
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Tu publicacion ha sido guardada');
         //return back()->with('flash', 'Tu publicacion ha sido guardada');
     }
+    public function destroy(Post $post )
+    {
+        // Antes de eliminar el post accedemos al tags para eliminar todas las relaciones que puedan haber
+        // Lo que hacemos es llamar al metodo detach lo cual hará es elimnar todas las relaciones que existen con este post.
+        // se usa para la relacion de muchos a muchos
+        $post->tags()->detach();
+
+        //Ahora vamos ha aceeder a la relacion fotos y procederemos a borrar.
+
+        $post->photos()->delete();
+
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('flash', 'La publicacion ha sido eliminada');
+
+    }
     /* Metodo nos servia para la creacion de un post
     public function store(Request $request)
     {
