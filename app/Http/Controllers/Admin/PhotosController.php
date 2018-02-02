@@ -26,7 +26,7 @@ class PhotosController extends Controller
         // pero podemos indicarle que lo guarde en la carpeta public de ahi dentro
         // de la siguiente manera ('public') o con otro nombre
         // eso nos devolvera la direccion url de la imagen.
-        $photo = $photo->store('public');
+        return $photo = $photo->store('public');
         // para poder acceder a las imagenes que se guardar en la carpeta store/app/public
         // demos crear un simbolic link, para ello artisan nos provee el siguiente comoando.
         // php artisan storage:link
