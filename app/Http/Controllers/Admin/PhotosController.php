@@ -26,13 +26,13 @@ class PhotosController extends Controller
         // pero podemos indicarle que lo guarde en la carpeta public de ahi dentro
         // de la siguiente manera ('public') o con otro nombre
         // eso nos devolvera la direccion url de la imagen.
-<<<<<<< HEAD
-        return $photo = $photo->store('public');
-=======
+
+        // return $photo = $photo->store('public');
+
         // vamos a guardarlo en una subcarpeta llamada post como primer parametro
         // como segundo parametro el disco como tenemos definido en la configuracion
         $photo = $photo->store('posts','public');
->>>>>>> 93884a4bd8f101f7cbc9c377060c80a3af79159a
+
         // para poder acceder a las imagenes que se guardar en la carpeta store/app/public
         // demos crear un simbolic link, para ello artisan nos provee el siguiente comoando.
         // php artisan storage:link
@@ -65,7 +65,7 @@ class PhotosController extends Controller
         // Ahora como parte de la mejora lo que vamos hacer es que cuando se elimine una foto  desde la base de datos con elocuent
         // inmediatamente se elimine la foto a la que hace referencia. Para ello utilizaremos el modelo foto.
         $photo->delete();
-        
+
         return back()->with('flash','Foto eliminada');
     }
 }

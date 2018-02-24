@@ -18,6 +18,39 @@ class Post extends Model
 
     // lo que hacemos haciendo es darle formato de fecha para poder usar todas las propiedades
     protected $dates = ['published_at'];
+
+    protected static function boot(){
+        // Antes que nada debemos ejecutar el metodo boot del padre del cual hereda este metodo.
+        parent::boot();
+
+        // Cuando estemos eliminando un post lo que hacemos es
+        // eliminar las etiquetas y de ahi eliminar las imagenes del
+        // servidor
+        static::deleting(function($post){
+            // Antes de eliminar el post accedemos al tags para eliminar todas las relaciones que puedan haber
+            // Lo que hacemos es llamar al metodo detach lo cual hará es elimnar todas las relaciones que existen con este post.
+            // se usa para la relacion de muchos a muchos
+            $post->tags()->detach();
+            // Por cada foto que eliminemos estaremos escuchando el metodo
+            // deleting que se encuentra en nuestro modelo photo
+            // Tres formas de hacer el borrado de la photo en el servidor
+            // como es una coleccion de datos podemos hacer esto
+            // Forma 1
+            // foreach ($post->photos as $photo)
+            // {
+            //     $photo->delete();
+            // }
+            // Forma 2
+            $post->photos->each(function($photo){
+                $photo->delete();
+            });
+            // Forma 3 [no me funciona]
+            // Por cada foto llamar al metodo delete
+            // $post->photos()->each->delete();
+        });
+
+    }
+
     /*
     Para las url amigables vamos a sobreescribir el metodo getRouteKeyName
     y retornamos el nombre del campo por el cual queremos encontrarlo

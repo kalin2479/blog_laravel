@@ -19,8 +19,10 @@ class PostsTableSeeder extends Seeder
         // Para borrar la carpeta que deseamos indicamos de la siguente manera
         // pero debemos especificar el disco por que sino va a buscar dentro de la carpeta app
         // y no se tiene uina carpeta posts sino esta dentro de public..
-
         Storage::disk('public')->deleteDirectory('posts');
+        // En la instruccion de abajo borramos todas las imagenes que se encuentran dentro de la 
+        // carpeta public
+        // Storage::deleteDirectory('public');
 
         Post::truncate(); // hacemos esto para que cada vez que se ejecute nos limpie la
         // tabla y nos genere los registros
